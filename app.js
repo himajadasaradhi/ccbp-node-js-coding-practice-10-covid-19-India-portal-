@@ -35,7 +35,7 @@ let authorizeToken = (request, response, next) => {
   if (jwtToken !== undefined) {
     jwt.verify(jwtToken, "MY_ACCESS_TOKEN", (error, payLoad) => {
       if (error) {
-        response.send(401);
+        response.status(401);
         response.send("Invalid JWT Token");
       } else {
         next();
@@ -74,6 +74,17 @@ const convertCase = (dbObject) => {
     stateName: dbObject.state_name,
     stateId: dbObject.state_id,
     population: dbObject.population,
+  };
+};
+const convertDistrictCase = (dbObject) => {
+  return {
+    districtName: dbObject.district_name,
+    districtId: dbObject.district_id,
+    stateId: dbObject.state_id,
+    cases: dbObject.cases,
+    cured: dbObject.cured,
+    active: dbObject.active,
+    deaths: dbObject.deaths,
   };
 };
 //API 2
